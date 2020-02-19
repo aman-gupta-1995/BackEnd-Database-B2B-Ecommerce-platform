@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewData["Title"] = SharedLocalizer.GetString("Products");
+}
+
+<div class="row">
+    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+        <input value="0" id="pageIndex" type="hidden" />
+
+        <div class="row" id="product-div">
+
+
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="product-sidebar">
+            <div class="product-sidebar-widget">
+                <h4 class="mb-0">Categories</h4>
+            </div>
+            <div class="product-sidebar-widget">
+                <div class="custom-control custom-radio custom-color-blue ">
+                    <input type="radio" id="color-1" name="categoryRadio" data-categoryId="1" class="custom-control-input">
+                    <label class="custom-control-label" for="color-1">Camera</label>
+                </div>
+                <div class="custom-control custom-radio custom-color-red ">
+                    <input type="radio" id="color-2" name="categoryRadio" data-categoryId="2" class="custom-control-input">
+                    <label class="custom-control-label" for="color-2">Computers</label>
+                </div>
+                <div class="custom-control custom-radio custom-color-yellow ">
+                    <input type="radio" id="color-3" name="categoryRadio" data-categoryId="3" class="custom-control-input">
+                    <label class="custom-control-label" for="color-3">Headphones</label>
+                </div>
+                <div class="custom-control custom-radio custom-color-black ">
+                    <input type="radio" id="color-4" name="categoryRadio" data-categoryId="4" class="custom-control-input">
+                    <label class="custom-control-label" for="color-4">Televisions</label>
+                </div>
+            </div>
+            <div class="product-sidebar-widget">
+                <a href="#" class="btn btn-outline-light">Reset Filter</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var data;
+        $(document).ready(function () {
+            data = {
+                PageIndex: $("#pageIndex").val()
+                //PageSize: $("#surname").val(),
+                //CategoryId: $("#identityNumber").val()
+            };
+
+            RetrieveProducts();
+        });
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                RetrieveProducts();
+            }
+        });
+
+        $('input[type=radio][name=categoryRadio]').change(function () {
+            $('#product-div').html("");
+            data.CategoryId = $(this).data("categoryid");
+            $("#pageIndex").val(0);
+            data.PageIndex = $("#pageIndex").val();
+            RetrieveProducts();
+        });
+
+        function RetrieveProducts() {
+            wait();
+
+            data.PageIndex = $("#pageIndex").val();
+            $.ajax({
+                type: 'POST',
+                url: '/Catalog/RetrieveProducts',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function (jsonData) {
+                    if (jsonData.data.products.length === 0) {
+                        resume();
+                        prompt("Info", "There is no more product!");
+                        return;
+                    }
+
+                    $("#pageIndex").val(parseInt(data.PageIndex) + 1);
+
+                    if (jsonData == null) {
+                        alert('no data returned');
+                        return;
+                    }
+
+                    $.each(jsonData.data.products, function (index, product) {
+                        var ProductSummaryString =
+                            '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">' +
+                            '   <div class="product-thumbnail">' +
+                            '       <div class="product-img-head">' +
+                            '           <div class="product-img">' +
+                            '               <img src="images/' + product.erpCode + '.png" width="228px" height="250px" alt="" class="img-fluid">' +
+                            '           </div>' +
+                            '       </div>' +
+                            '       <div class="product-content">' +
+                            '           <div class="product-content-head">' +
+                            '               <h3 class="product-title">' + product.name + '</h3>' +
+                            '                   <div class="d-inline-block">Ürün Kodu : ' + product.erpCode + '</div><br/>' +
+                            '                   <div class="d-inline-block">Birim : ' + 'ADET(1) ' + '</div><br/>' +
+                            //'                   <div class="d-inline-block">Discount : ' + '33 + 0 + 0 ' + ' TL' + '</div><br/>' +
+                            '                   <div class="d-inline-block">Liste Fiyatı : <del>' + product.price + ' TL</del>' + '</div><br/>' +
+                            '                   <div class="d-inline-block">Iskontolu Fiyat : ' + product.salePrice + ' TL' + '</div>' +
+                            '           </div>' +
+                            '           <div class="product-btn">' +
+                            '               <input id="' + product.erpCode + '-quantity" type="number" class="form-control" placeholder="Miktar" min="1" max="100">' +
+                            '               <a href="#" class="btn btn-primary" style="display: block; margin-top:5px;" onclick=AddToCart(' + '"' + product.erpCode + '"' + ')>Add to Cart</a>' +
+                            //'               <a href="#" class="btn btn-outline-light">Details</a>' +
+                            '           </div>' +
+                            '       </div>' +
+                            '   </div>' +
+                            '</div>';
+
+                        $('#product-div').append(ProductSummaryString);
+                    });
+
+                    resume();
+                },
+                error: function (ex) {
+                    alert(ex);
+                }
+            });
+            return false;
+        }
+
+        function AddToCart(erpCode) {
+            var quantityId = "#" + erpCode + "-quantity";
+            var quantity = $("" + quantityId + "").val();
+            if (quantity === undefined) {
+                prompt("Warning", "Please check the quantity that you wrote. Quantity must be between 1 to 100");
+                return;
+            }
+            var intQuantity = parseInt(quantity);
+            if (intQuantity < 1 || intQuantity > 100) {
+                prompt("Warning", "Please check the quantity that you wrote. Quantity must be between 1 to 100");
+                return;
+            }
+            wait();
+            var model = {
+                ErpCode: erpCode,
+                Quantity: intQuantity
+            };
+
+
+            $.ajax({
+                type: "Post",
+                url: "/Cart/AddToCart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(model),
+                success: function (result) {
+                    resume();
+                    if (result.success) {
+                        RetrieveShoppingCartComponent();
+                        prompt("Bilgilendirme", erpCode + "'lu ürünümüzden " + quantity + " adet sepetinize eklediniz.");
+                    }
+                },
+                error: function (result) {
+                    resume();
+                }
+            }).done(function (result) {
+
+            });
+        }
+
+        function RetrieveShoppingCartComponent() {
+            $.get("/RetrieveShoppingCartSummary", function(data) {
+                $("#shopping-cart").html(data);
+            });
+        }
+    </script>
+}

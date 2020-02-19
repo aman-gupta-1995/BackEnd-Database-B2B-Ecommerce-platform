@@ -1,0 +1,155 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile Update";
+}
+
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+        <div class="card">
+            <h5 class="card-header">@SharedLocalizer.GetString("ProfileInfoForm")</h5>
+            <div class="card-body">
+                <form method="post" id="profile-update-form">
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">@SharedLocalizer.GetString("Name")</label>
+                        <input id="name" type="text" class="form-control" value="@Model.UserInfo.Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname" class="col-form-label">@SharedLocalizer.GetString("Surname")</label>
+                        <input id="surname" type="text" class="form-control" value="@Model.UserInfo.Surname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">@SharedLocalizer.GetString("Email")</label>
+                        <input id="inputEmail" type="email" placeholder="name@example.com" class="form-control" value="@Model.UserInfo.Email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="identityNumber" class="col-form-label">@SharedLocalizer.GetString("IdentityNumber")</label>
+                        <input id="identityNumber" type="text" class="form-control" value="@Model.UserInfo.IdentityNumber">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-space" type="submit"><i class="icon s7-mail"></i> @SharedLocalizer.GetString("Save")</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+        <div class="card">
+            <h5 class="card-header">@SharedLocalizer.GetString("AddressUpsert")</h5>
+            <div class="card-body">
+                <form method="post" id="adress-upsert-form">
+                    <input value="@Model.AddresInfo.AddressId" id="addressId" type="hidden" />
+
+                    <div class="form-group">
+                        <label for="addressLine1" class="col-form-label">@SharedLocalizer.GetString("AddressLine1")</label>
+                        <input id="addressLine1" type="text" class="form-control" value="@Model.AddresInfo.AddressLine1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLine2" class="col-form-label">@SharedLocalizer.GetString("AddressLine2")</label>
+                        <input id="addressLine2" type="text" class="form-control" value="@Model.AddresInfo.AddressLine2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city" class="col-form-label">@SharedLocalizer.GetString("City")</label>
+                        <input id="city" type="text" class="form-control" value="@Model.AddresInfo.City" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state" class="col-form-label">@SharedLocalizer.GetString("State")</label>
+                        <input id="state" type="text" class="form-control" value="@Model.AddresInfo.State" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode" class="col-form-label">@SharedLocalizer.GetString("ZipCode")</label>
+                        <input id="zipCode" type="text" class="form-control" value="@Model.AddresInfo.ZipCode" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-space" type="submit"><i class="icon s7-mail"></i> @SharedLocalizer.GetString("Save")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $("#profile-update-form").submit(function (e) {
+                e.preventDefault();
+                wait();
+
+                var data = {
+                    Name: $("#name").val(),
+                    Surname: $("#surname").val(),
+                    IdentityNumber: $("#identityNumber").val()
+                };
+
+                var token = $('input[name="__RequestVerificationToken"]', '#profile-update-form').val();
+                $.ajax({
+                    type: 'Post',
+                    url: "/User/UpsertProfileInfo",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN", token);
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        resume();
+                        prompt("Message", result.message);
+                        console.log(result);
+                    },
+                    error: function (result) {
+                        resume();
+                        prompt("Message", result.message);
+                    }
+                }).done(function (result) {
+                });
+            });
+        });
+
+        $(function () {
+            $("#adress-upsert-form").submit(function (e) {
+                e.preventDefault();
+                wait();
+
+                var data = {
+                    AddressId: $("#addressId").val() == "" ? 0 : parseInt($("#addressId").val()),
+                    AddressLine1: $("#addressLine1").val(),
+                    AddressLine2: $("#addressLine2").val(),
+                    ZipCode: $("#zipCode").val(),
+                    City: $("#city").val(),
+                    State: $("#state").val()
+                };
+
+                var token = $('input[name="__RequestVerificationToken"]', '#adress-upsert-form').val();
+
+                $.ajax({
+                    type: 'Post',
+                    url: "/User/UpsertAddress",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN", token);
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        resume();
+                        prompt("Message", result.message);
+                        console.log(result);
+                    },
+                    error: function (result) {
+                        resume();
+                        prompt("Message", result.message);
+                    }
+                }).done(function (result) {
+
+                });
+            });
+        });
+
+
+    </script>
+}

@@ -1,0 +1,107 @@
+﻿<div class="nav-left-sidebar sidebar-dark">
+    <div class="menu-list">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav flex-column">
+
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+                    {
+                        <li class="nav-divider">
+                            @SharedLocalizer.GetString("AdminPanel")
+                        </li>
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/User/"><i class="fa fa-fw fa-user-circle"></i>@SharedLocalizer.GetString("Users")</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Order/"><i class="fas fa-lock"></i>@SharedLocalizer.GetString("Orders")</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+
+                    <li class="nav-divider">
+                        @SharedLocalizer.GetString("AccountServicePanel")
+                    </li>
+                    <li class="nav-item">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/User/Profile"><i class="fas fa-shopping-basket"></i>@SharedLocalizer.GetString("EditProfile")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Catalog"><i class="fas fa-user"></i>@SharedLocalizer.GetString("NewOrder")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Cart"><i class="fas fa-shopping-cart"></i>@SharedLocalizer.GetString("MyCart")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Catalog"><i class="fab fa-product-hunt"></i>@SharedLocalizer.GetString("Products")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Order/PreviousOrders"><i class="fas fa-history"></i>@SharedLocalizer.GetString("OrderHistory")</a>
+                            </li>
+                            @*<li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-book"></i>@SharedLocalizer.GetString("CurrentAccountStatement")</a>
+                            </li>*@
+                        </ul>
+                    </li>
+
+                    <li class="nav-divider">
+                        @SharedLocalizer.GetString("CompanyProfile")
+                    </li>
+                    <li class="nav-item">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/About"><i class="fas fa-rocket"></i>@SharedLocalizer.GetString("About")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/Team"><i class="fas fa-diagnoses"></i>@SharedLocalizer.GetString("OurTeam")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/BankAccounts"><i class="fas fa-lira-sign"></i>@SharedLocalizer.GetString("OurBankAccounts")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/References"><i class="fas fa-clipboard-check"></i>@SharedLocalizer.GetString("References")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/Contact"><i class="fas fa-text-width"></i>@SharedLocalizer.GetString("Contact")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/MemberAgreement"><i class="fas fa-quote-left"></i>@SharedLocalizer.GetString("MemberAgreement")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/GuaranteeReturn"><i class="fas fa-quote-left"></i>@SharedLocalizer.GetString("GuaranteeReturn")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/PrivacySecurity"><i class="fas fa-quote-left"></i>@SharedLocalizer.GetString("PrivacySecurity")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Home/DeliveryConditions"><i class="fas fa-quote-left"></i>@SharedLocalizer.GetString("DeliveryConditions")</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                &nbsp;
+                            </li>
+                            <li class="nav-item">
+                                &nbsp;
+                            </li>
+                            <li class="nav-item">
+                                &nbsp;
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

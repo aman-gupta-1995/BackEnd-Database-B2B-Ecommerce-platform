@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = SharedLocalizer.GetString("Contact");
+}
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-section" id="overview">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <ul style="list-style-type: none">
+                        <li class="mdi mdi-calendar mdi">Address : Bootstrap’s cards provide a flexible and extensible content container with multiple variants and options.</li>
+                        <li class="mdi mdi-email-outline mdi">Email : arslanaybars@gmail.coom</li>
+                    </ul>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <ul style="list-style-type: none">
+                        <li class="mdi mdi-cellphone mdi">Phone : 0 (212) 555 55 55</li>
+                        <li class="mdi mdi-cellphone mdi">Fax : 0 (212) 555 55 56</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="email-compose-fields">
+    <div>
+        <h4>Send Message</h4>
+    </div>
+    <div class="to">
+        <div class="form-group row pt-0">
+            <label class="col-md-1 control-label">Name Surname</label>
+            <div class="col-md-11">
+                <input class="form-control" type="text" id="txtContactNameSurname" required />
+            </div>
+        </div>
+    </div>
+    <div class="subject">
+        <div class="form-group row pt-2">
+            <label class="col-md-1 control-label">Subject</label>
+            <div class="col-md-11">
+                <input class="form-control" type="text" id="txtContactSubject" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="email editor">
+    <div class="col-md-12 p-0">
+        <div class="form-group">
+            <textarea class="form-control" id="txtContactMessage" rows="6" placeholder="Write message" required></textarea>
+        </div>
+    </div>
+    <div class="email action-send">
+        <div class="col-md-12 ">
+            <div class="form-group">
+                <button class="btn btn-primary btn-space" onclick="SendMail()" type="submit"><i class="icon s7-mail"></i> Send</button>
+                <button class="btn btn-secondary btn-space" type="button"><i class="icon s7-close"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-section" id="overview">
+            <div class="row">
+                <div id="vmap" class="vector-map" style="width: 100%; height: 500px; position: relative; overflow: hidden; background-color: rgb(165, 191, 221);">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102101.69122508244!2d30.648065315407905!3d36.89805427794303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39aaeddadadc1%3A0x95c69f73f9e32e33!2sAntalya!5e0!3m2!1sen!2str!4v1553372615034" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        function SendMail() {
+            wait();
+            var fullname = document.getElementById("txtContactNameSurname").value;
+            var subject = document.getElementById("txtContactSubject").value;
+            var message = document.getElementById("txtContactMessage").value;
+
+            var model = {
+                FullName: fullname,
+                Subject: subject,
+                Message: message
+            };
+
+            $.ajax({
+                type: "Post",
+                url: "/Home/Contact",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(model),
+                async: true,
+                success: function (result) {
+                    resume();
+                    fullname = "";
+                    subject = "";
+                    message = "";
+                    prompt("Mesaj", result.message);
+                },
+                error: function (errorData) { console.log(errorData) }
+            });
+        }
+    </script>
+}

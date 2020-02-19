@@ -1,0 +1,70 @@
+﻿@model VirtualPosViewModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetString("VirtualPos");
+}
+
+<div class="row">
+    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="VirtualPayment" asp-controller="Checkout" class="needs-validation" novalidate="">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="mb-3">
+                                <label asp-for="Amount">@SharedLocalizer.GetString("VirtualPosAmount")</label>
+                                <input asp-for="Amount" type="number" id="Amount" min="100" class="form-control" required>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Name">@SharedLocalizer.GetString("Name")</label>
+                                    <input asp-for="Name" type="text" class="form-control" id="Name" placeholder="Alper" required>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Surname">@SharedLocalizer.GetString("Surname")</label>
+                                    <input asp-for="Surname" class="form-control" id="Surname" placeholder="Arican" required>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Email">@SharedLocalizer.GetString("Email")</label>
+                                    <input asp-for="Email" class="form-control" id="Email" placeholder="alperarican@gmail.com" required>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="PhoneNumber">@SharedLocalizer.GetString("PhoneNumber")</label>
+                                    <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="0534xxxaabb" required>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="PaymentNote">@SharedLocalizer.GetString("PaymentNote")</label>
+                                <input asp-for="PaymentNote" type="email" rows="4" class="form-control" id="PaymentNote" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox">
+                                <input asp-for="AcceptConditions" type="checkbox" class="custom-control-input">
+                                <label asp-for="AcceptConditions" class="custom-control-label">@SharedLocalizer.GetString("AgreeTermsAndConditions")</label>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">@SharedLocalizer.GetString("Pay")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

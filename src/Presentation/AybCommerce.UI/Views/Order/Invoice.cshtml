@@ -1,0 +1,115 @@
+﻿@model InvoiceViewModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetString("Invoice");
+}
+
+<div class="row">
+    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header p-4">
+                <a class="pt-2 d-inline-block" href="/Home/">AybCommerce</a>
+
+                <div class="float-right">
+                    <h3 class="mb-0">@SharedLocalizer.GetString("Invoice"); @Model.OrderId</h3>
+                    @SharedLocalizer.GetString("Date"): @Model.OrderDate
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">From:</h5>
+                        <h3 class="text-dark mb-1">AybCommerce</h3>
+
+                        <div>MY Address</div>
+                        <div>Address detail</div>
+                        <div>Email: company@aybcommerce.com</div>
+                        <div>Phone: +90 534 817 82 99</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">@SharedLocalizer.GetString("To"):</h5>
+                        <h3 class="text-dark mb-1">@Model.FullName</h3>
+                        <div>@Model.Address</div>
+                        <div>@Model.CityStateZip</div>
+                        @if (!string.IsNullOrEmpty(Model.Email))
+                        {
+                            <div>@SharedLocalizer.GetString("Email"): @Model.Email</div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Phone))
+                        {
+                            <div>@SharedLocalizer.GetString("Phone"): @Model.Phone</div>
+                        }
+                    </div>
+                </div>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            @*<th class="center">@SharedLocalizer.GetString("OrderItemId")</th>*@
+                            <th>@SharedLocalizer.GetString("ProductImage")</th>
+                            <th>@SharedLocalizer.GetString("ProductCode")</th>
+                            <th>@SharedLocalizer.GetString("ProductName")</th>
+                            <th class="right">@SharedLocalizer.GetString("UnitCost")</th>
+                            <th class="center">@SharedLocalizer.GetString("Quantity")</th>
+                            <th class="right">@SharedLocalizer.GetString("TotalAmount")</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+
+                                @*<td>@item.OrderItemId</td>*@
+                                <td><img src="@item.ImageUrl" width="95" height="110"/></td>
+                                <td class="left strong">@item.ProductCode</td>
+                                <td class="left">@item.ProductName</td>
+                                <td class="right">@item.Amount</td>
+                                <td class="center">@item.Quantity</td>
+                                <td class="right">@item.TotalAmount @item.Currency</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <br>
+                        Order Note : @Model.OrderNote
+                    </div>
+                    <div class="col-lg-4 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                @*<tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Subtotal</strong>
+                                    </td>
+                                    <td class="right">$28,809,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Discount (20%)</strong>
+                                    </td>
+                                    <td class="right">$5,761,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">VAT (10%)</strong>
+                                    </td>
+                                    <td class="right">$2,304,00</td>
+                                </tr>*@
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">@SharedLocalizer.GetString("TotalAmount")</strong>
+                                    </td>
+                                    <td class="right">
+                                        <strong class="text-dark">@Model.TotalAmount TL</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

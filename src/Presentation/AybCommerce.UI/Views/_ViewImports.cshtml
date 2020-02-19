@@ -1,0 +1,22 @@
+﻿@using AybCommerce.UI
+@using AybCommerce.UI.Models
+
+@using AybCommerce.UI.ViewModels
+@using AybCommerce.UI.ViewModels.Account;
+@using AybCommerce.UI.ViewModels.Home;
+@using AybCommerce.UI.ViewModels.User;
+@using AybCommerce.UI.ViewModels.Cart;
+@using AybCommerce.UI.ViewModels.Checkout;
+@using AybCommerce.UI.ViewModels.Order;
+
+@using AybCommerce.UI.Resources
+
+@using AybCommerce.Domain.Entities
+
+@using Microsoft.AspNetCore.Identity
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject LocalizationService SharedLocalizer

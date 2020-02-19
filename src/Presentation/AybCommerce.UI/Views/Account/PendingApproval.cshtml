@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+
+<div class="error-section">
+    <img src="../assets/images/error-img.png" alt="" class="img-fluid">
+    <div class="error-section-content">
+        <h1 class="display-3">Pending Approval</h1>
+        <p>User needs to approval from site administration.</p>
+        <p>When they approve your registration we will send you a notification e-mail!</p>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary btn-lg">@SharedLocalizer.GetString("BackToHomePage")</a>
+    </div>
+</div>

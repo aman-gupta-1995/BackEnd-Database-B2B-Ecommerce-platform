@@ -1,0 +1,317 @@
+﻿@model List<CartItemViewModel>
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetString("Cart");
+}
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">@SharedLocalizer.GetString("Products")</h5>
+            <div class="card-body">
+
+                @if (!Model.Any())
+                {
+                    <p>Shopping Cart is empty!</p>
+                }
+                else
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">@SharedLocalizer.GetString("ProductImage")</th>
+                                <th scope="col">@SharedLocalizer.GetString("ProductCode")</th>
+                                <th scope="col">@SharedLocalizer.GetString("ProductName")</th>
+                                <th scope="col">@SharedLocalizer.GetString("Quantity")</th>
+                                <th scope="col">Miktarı Güncelleme</th>
+                                @*<th scope="col">KDV</th>*@
+                                <th scope="col">@SharedLocalizer.GetString("UnitCost")</th>
+                                @*<th scope="col">İskonto 1</th>
+                                        <th scope="col">İskonto 2</th>
+                                        <th scope="col">B2B İskonto</th>
+                                    <th scope="col">Net Fiyat</th>*@
+                                <th scope="col">@SharedLocalizer.GetString("TotalAmount")</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><img src="@item.ImageUrl" width="95" height="110" /></td>
+                                    <td>@item.ProductCode</td>
+                                    <td>@item.ProductName</td>
+                                    <td><input type="number" min="1" max="100" class="form-control is-valid" id="@item.ProductCode-quantity" value="@item.Quantity" required=""></td>
+                                    <td><button class="btn btn-primary btn-sm" onclick="AddToCart('@item.ProductCode');">Miktarı Güncelle</button></td>
+                                    <td>@item.SalePrice <del>@item.Price</del></td>
+                                    <td>@(item.SalePrice * item.Quantity)</td>
+                                    <td><button class="btn btn-primary btn-sm" onclick="RemoveFromCart('@item.ProductCode');">Sepetten Çıkar</button></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        @SharedLocalizer.GetString("Address")
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="user-info"></p>
+                        <p class="card-text" id="address-info"></p>
+                        <input value="0" id="addressId" type="hidden" />
+                    </div>
+                    <div class="card-footer p-0 text-center">
+                        <div class="card-footer-item card-footer-item-bordered">
+                            <a href="#" onclick=UpdateAddressModal() class="card-link">@SharedLocalizer.GetString("AddressUpdate")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        @SharedLocalizer.GetString("Pay")
+                    </div>
+                    <div class="card-footer p-0 text-center">
+                        <div class="card-footer-item card-footer-item-bordered" style="display: block;">
+                            <textarea class="form-control" id="orderNote" rows="3" placeholder="Order Note"></textarea>
+                            <a href="#" class="card-link btn btn-success" id="btn-complete-order" onclick="CompleteOrder()" style="margin-top:5px">@SharedLocalizer.GetString("CompleteOrder")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Address update modal*@
+<div class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="updateAddressModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">@SharedLocalizer.GetString("AddressUpsert")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="update-address" method="post">
+
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="addressLine1" class="col-form-label">@SharedLocalizer.GetString("AddressLine1")</label>
+                                <input id="addressLine1" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="addressLine2" class="col-form-label">@SharedLocalizer.GetString("AddressLine2")</label>
+                                <input id="addressLine2" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="col-form-label">@SharedLocalizer.GetString("City")</label>
+                                <input id="city" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="col-form-label">@SharedLocalizer.GetString("State")</label>
+                                <input id="state" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode" class="col-form-label">@SharedLocalizer.GetString("ZipCode")</label>
+                                <input id="zipCode" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer.GetString("Close")</button>
+                    <button type="submit" class="btn btn-primary">@SharedLocalizer.GetString("Save")</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            RetrieveProfileInfo();
+        });
+
+        function UpdateAddressModal() {
+            $("#updateAddressModal").modal("show");
+        }
+
+        $(function () {
+            $("#update-address").submit(function (e) {
+                e.preventDefault();
+                $("#updateAddressModal").modal("hide");
+                wait();
+                var data = {
+                    AddressId: $("#addressId").val() == "" ? 0 : parseInt($("#addressId").val()),
+                    AddressLine1: $("#addressLine1").val(),
+                    AddressLine2: $("#addressLine2").val(),
+                    ZipCode: $("#zipCode").val(),
+                    City: $("#city").val(),
+                    State: $("#state").val()
+                };
+
+                var token = $('input[name="__RequestVerificationToken"]', '#update-address').val();
+                $.ajax({
+                    type: 'Post',
+                    url: "/User/UpsertAddress",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN", token);
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        RetrieveProfileInfo();
+                        resume();
+                        prompt("Message", result.message);
+                        console.log(result);
+                    },
+                    error: function (result) {
+                        resume();
+                        prompt("Message", result.message);
+                    }
+                }).done(function (result) {
+
+                });
+            });
+        });
+
+        function RetrieveProfileInfo() {
+            wait();
+            $.ajax({
+                type: 'Post',
+                url: "/User/RetrieveProfileData",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#user-info').text(result.data.userInfo.name + ' ' + result.data.userInfo.surname);
+
+                    if (result.data.addresInfo.addressId !== null) {
+                        $("#addressId").val(result.data.addresInfo.addressId);
+                        $("#addressLine1").val(result.data.addresInfo.addressLine1);
+                        $("#addressLine2").val(result.data.addresInfo.addressLine2);
+                        $("#city").val(result.data.addresInfo.city);
+                        $("#state").val(result.data.addresInfo.state);
+                        $("#zipCode").val(result.data.addresInfo.zipCode);
+
+                        $('#address-info').text(result.data.addresInfo.addressLine1 + ' ' + result.data.addresInfo.addressLine2
+                            + ' ' + result.data.addresInfo.city + ' ' + result.data.addresInfo.state + ' ' + result.data.addresInfo.zipCode);
+                    }
+
+                    if (result.data.addresInfo.addressId === null || $(".table.table-striped").length < 1) {
+                        $("#btn-complete-order").addClass('disabled');
+                    }
+                    else {
+                        if ($(".table.table-striped").length > 0) {
+                            $("#btn-complete-order").removeClass('disabled');
+                        }
+                    }
+                    resume();
+                },
+                error: function (result) {
+                    resume();
+                }
+            }).done(function (result) {
+            });
+        }
+
+        function RemoveFromCart(productCode) {
+            wait();
+            var data = {
+                productCode: productCode
+            };
+
+            $.ajax({
+                type: "Post",
+                url: "/Cart/RemoveFromCart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(data),
+                async: true,
+                success: function (result) {
+                    resume();
+                    //prompt("Mesaj", result.message);
+                    location.reload();
+                },
+                error: function (errorData) { console.log() }
+            });
+        }
+
+        // duplicate with catalog index
+        function AddToCart(erpCode) {
+            var quantityId = "#" + erpCode + "-quantity";
+            var quantity = $("" + quantityId + "").val();
+            if (quantity === undefined) {
+                prompt("Hata", "Lütfen yazdığınız miktarı kontrol ediniz. Miktar 1'den küçük ve 100'den büyük olamaz");
+                return;
+            }
+            var intQuantity = parseInt(quantity);
+            if (intQuantity < 1 || intQuantity > 100) {
+                prompt("Hata", "Lütfen yazdığınız miktarı kontrol ediniz. Miktar 1'den küçük ve 100'den büyük olamaz");
+                return;
+            }
+            wait();
+            var model = {
+                ErpCode: erpCode,
+                Quantity: intQuantity
+            };
+
+
+            $.ajax({
+                type: "Post",
+                url: "/Cart/AddToCart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(model),
+                success: function (result) {
+                    resume();
+                    location.reload();
+                },
+                error: function (result) {
+                    resume();
+                }
+            }).done(function (result) {
+
+            });
+        }
+
+        function CompleteOrder() {
+            wait();
+
+            var data = {
+                OrderNote: $("#orderNote").val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: "/Checkout/CompleteOrder",
+                contentType: "application/json;",
+                dataType: "json",
+                data: JSON.stringify(data),
+                success: function (result) {
+                    resume();
+                    // data.externalData.orderId redirect to invoice
+                    window.location.href = '/Order/Invoice?orderId=' + result.externalData.orderId; 
+                },
+                error: function (result) {
+                    resume();
+                    prompt("Message", result.message);
+                }
+            }).done(function (result) {
+
+            });
+        }
+    </script>
+
+}

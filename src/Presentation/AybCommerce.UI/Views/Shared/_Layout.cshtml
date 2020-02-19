@@ -1,0 +1,24 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <partial name="_LayoutHeader" />
+</head>
+<body>
+    <div class="dashboard-main-wrapper">
+        <partial name="_Navbar" />
+        <partial name="_LeftSideBar" />
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                <partial name="_PageHeader" />
+                @RenderBody()
+            </div>
+            @*@await Html.PartialAsync("_LanguageSelection")*@
+            <partial name="_Footer" />
+        </div>
+    </div>
+    <partial name="_Modals" />
+    <partial name="_LayoutScripts" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

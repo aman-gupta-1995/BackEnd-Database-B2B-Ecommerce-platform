@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = SharedLocalizer.GetString("Orders");
+}
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>@SharedLocalizer.GetString("Id")</th>
+                                <th>@SharedLocalizer.GetString("Name")</th>
+                                <th>@SharedLocalizer.GetString("Surname")</th>
+                                <th>@SharedLocalizer.GetString("Email")</th>
+                                <th>@SharedLocalizer.GetString("Status")</th>
+                                <th>@SharedLocalizer.GetString("TotalAmount")</th>
+                                <th>@SharedLocalizer.GetString("Date")</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @*<tr data-uid="user.UserId">
+                                    <td>user.Name</td>
+                                    <td>user.Surname</td>
+                                    <td>user.Email</td>
+                                    <td>user.Status</td>
+                                    <td>user.Status</td>
+                                </tr>*@
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>@SharedLocalizer.GetString("Id")</th>
+                                <th>@SharedLocalizer.GetString("Name")</th>
+                                <th>@SharedLocalizer.GetString("Surname")</th>
+                                <th>@SharedLocalizer.GetString("Email")</th>
+                                <th>@SharedLocalizer.GetString("Status")</th>
+                                <th>@SharedLocalizer.GetString("TotalAmount")</th>
+                                <th>@SharedLocalizer.GetString("Date")</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="~/assets/vendor/datatables/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" type="text/css" href="~/assets/vendor/datatables/css/buttons.bootstrap4.css">
+<link rel="stylesheet" type="text/css" href="~/assets/vendor/datatables/css/select.bootstrap4.css">
+<link rel="stylesheet" type="text/css" href="~/assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    @*<script src="~/assets/vendor/datatables/js/data-table.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+
+
+    <script type="text/javascript">
+        var table;
+        $(document).ready(function () {
+            table = $('table.second').DataTable({
+                ajax: {
+                    url: "/Order/GetOrderList",
+                    type: "POST",
+                    datatype: "json"
+                },
+                dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "All"]],
+                pageLength: 25,
+                columns: [
+                    { data: "id", name: "id" },
+                    { data: "firstName", name: "firstName" },
+                    { data: "lastName", name: "lastName" },
+                    { data: "email", name: "Email" },
+                    { data: "status", name: "Status" },
+                    { data: "totalAmount", name: "TotalAmount" },
+                    { data: "created", name: "Created" },
+                    {
+                        data: "userId",
+                        render: function (data, type, full) {
+                            var btnClass = full.status !== "InProgress" ? "disabled" : "";
+                            return "<div align='center'>" +
+                                "<a class='btn btn-primary btn-sm' href='/Order/AdminInvoice?orderId="+ full.id +"' target='_blank' style='color:white'><i class='fas fa-edit'></i> Invoice</a>" +
+                                "<a class='btn btn-success btn-sm " + btnClass + "' onclick=UpdateOrderStatus(" + '"' + full.id + '"' + ',2' + ") style='margin-left:5px; color:white'><i class='far fa-thumbs-up'></i> Approve</a>" +
+                                "<a class='btn btn-danger btn-sm " + btnClass + "' onclick=UpdateOrderStatus(" + '"' + full.id + '"' + ',4' + ") style='margin-left:5px; color:white'><i class='fa fa-trash'></i> Reject</a>" +
+                                "</div>";
+                        },
+                        orderable: false,
+                        width: "300px"
+                    }
+                ],
+                buttons: [
+                    'pageLength', 'copy', 'excel', 'pdf', 'print', 'colvis'
+                ],
+                //columnDefs: [
+                //    { "orderable": false, "targets": 5 }
+                //],
+                serverSide: true,
+                order: [6, "desc"],
+                processing: true,
+                language: {
+                    processing: "Processing.. please wait!"
+                }
+            });
+        });
+
+        function UpdateOrderStatus(orderId, statusId) {
+            wait();
+            var data = {
+                orderId: orderId,
+                statusId: statusId
+            };
+
+            $.ajax({
+                type: "Post",
+                url: "/Order/UpdateOrderStatus",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(data),
+                async: true,
+                success: function (result) {
+                    resume();
+                    table.ajax.reload();
+                    prompt("Mesaj", result.message);
+                },
+                error: function (errorData) { console.log() }
+            });
+        }
+
+
+
+    </script>
+}

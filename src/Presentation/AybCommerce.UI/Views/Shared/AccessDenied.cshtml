@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "AccessDenied";
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+<div class="error-section">
+    <img src="../assets/images/error-img.png" alt="" class="img-fluid">
+    <div class="error-section-content">
+        <h1 class="display-3">Access Denied</h1>
+        <p>
+            You don't have permission for this action.
+        </p>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary btn-lg">@SharedLocalizer.GetString("BackToHomePage")</a>
+    </div>
+</div>
