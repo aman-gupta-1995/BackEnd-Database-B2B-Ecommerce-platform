@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.6.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AybCommerce.Common.Models\AybCommerce.Common.Models.csproj" />
+    <ProjectReference Include="..\..\Persistance\AybCommerce.Persistance.Data\AybCommerce.Persistance.Data.csproj" />
+    <ProjectReference Include="..\AybCommerce.Core.Interfaces\AybCommerce.Core.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
