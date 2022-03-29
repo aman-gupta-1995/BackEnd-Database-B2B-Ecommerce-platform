@@ -4,7 +4,7 @@ using AybCommerce.Domain.Entities;
 
 namespace AybCommerce.Core.Interfaces.Services
 {
-    public interface ICartItemService
+    public interface ICartItemService 
     { 
         bool UpsertToCartItem(CartItem model, string cartId); 
  
