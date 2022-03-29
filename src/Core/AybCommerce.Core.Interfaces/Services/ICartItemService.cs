@@ -11,7 +11,7 @@ namespace AybCommerce.Core.Interfaces.Services
         void RemoveToCartItem(CartItem model, string cartId);   
 
         List<CartItem> RetrieveCartItems(string cartId);
-
+ 
         void ClearCartItems(string cartId);
 
         decimal CartTotalAmount(string cartId);
