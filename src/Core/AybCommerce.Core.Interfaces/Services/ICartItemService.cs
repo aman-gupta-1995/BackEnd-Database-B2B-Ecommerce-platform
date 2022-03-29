@@ -6,7 +6,7 @@ namespace AybCommerce.Core.Interfaces.Services
 {
     public interface ICartItemService
     {
-        bool UpsertToCartItem(CartItem model, string cartId);
+        bool UpsertToCartItem(CartItem model, string cartId); 
 
         void RemoveToCartItem(CartItem model, string cartId);
 
