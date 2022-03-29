@@ -8,7 +8,7 @@ namespace AybCommerce.Core.Interfaces.Services
     { 
         bool UpsertToCartItem(CartItem model, string cartId); 
  
-        void RemoveToCartItem(CartItem model, string cartId);
+        void RemoveToCartItem(CartItem model, string cartId); 
 
         List<CartItem> RetrieveCartItems(string cartId);
 
