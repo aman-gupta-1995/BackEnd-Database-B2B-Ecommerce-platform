@@ -12,7 +12,7 @@ namespace AybCommerce.Core.Interfaces.Services
 
         List<CartItem> RetrieveCartItems(string cartId);
  
-        void ClearCartItems(string cartId);
+        void ClearCartItems(string cartId); 
 
         decimal CartTotalAmount(string cartId);
     }
