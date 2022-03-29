@@ -16,4 +16,4 @@ namespace AybCommerce.Core.Interfaces.Services
 
         decimal CartTotalAmount(string cartId);
     }
-}
+} 
