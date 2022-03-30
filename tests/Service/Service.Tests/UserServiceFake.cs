@@ -5,6 +5,6 @@ using System.Text;
 namespace Service.Tests
 {
     public class UserServiceFake
-    {
+    { 
     }
 }
