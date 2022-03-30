@@ -6,7 +6,7 @@ using AybCommerce.Core.Interfaces.Services;
 using AybCommerce.Domain.Entities; 
  
 namespace Service.Tests
-{
+{ 
     public class AddressServiceFake : IAddressService 
     {
         private readonly List<Address> _address;
