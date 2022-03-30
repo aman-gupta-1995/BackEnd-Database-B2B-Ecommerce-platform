@@ -1,5 +1,5 @@
 ### Screenshots
- 
+  
 ### Login
 <img src="https://raw.githubusercontent.com/arslanaybars/AybCommerce-B2B/master/Screenshots/Login.png" width="800" height="450"/>
 
