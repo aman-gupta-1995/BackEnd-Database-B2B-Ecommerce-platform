@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AybCommerce.Core.Interfaces.Services;
-using AybCommerce.Domain.Entities;
+using AybCommerce.Domain.Entities; 
  
 namespace Service.Tests
 {
