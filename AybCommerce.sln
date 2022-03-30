@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1 
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2CF10D8B-368A-4BA5-84F1-2908F50FF476}"
 	ProjectSection(SolutionItems) = preProject
-		migrations.txt = migrations.txt
+		migrations.txt = migrations.txt 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5FF67F45-BD3B-4561-A57F-81B82F092205}"
