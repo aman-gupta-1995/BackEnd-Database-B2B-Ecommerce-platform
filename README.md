@@ -8,7 +8,7 @@ You just need to install the [.net core 2.2](https://dotnet.microsoft.com/downlo
 
 ### Getting Started
  
-###### Screenshots
+###### Screenshots 
 <img src="https://raw.githubusercontent.com/arslanaybars/AybCommerce-B2B/master/Screenshots/Login.png" width="800" height="450"/>
 
 [See more screenshots](https://github.com/arslanaybars/AybCommerce-B2B/blob/master/Screenshots/README.md "AybCommerce Screenshots")
