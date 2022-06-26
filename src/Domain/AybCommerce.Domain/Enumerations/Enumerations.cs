@@ -6,7 +6,7 @@
         Active = 1,
         Passive = 2,
         Draft = -1,
-        Deleted = -999
+        Deleted = -999 
     }
 
     public enum CartStatus : short
