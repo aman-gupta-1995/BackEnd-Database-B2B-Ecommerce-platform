@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
-
+ 
 namespace AybCommerce.Common.Models
 { 
     public class DataTableFormRequest 
