@@ -10,7 +10,7 @@ namespace AybCommerce.Common.Models
             Start = Convert.ToInt32(request.Form["start"]);
 
             Length = Convert.ToInt32(request.Form["length"]);
-
+ 
             SearchValue = request.Form["search[value]"];
 
             SortColumnName = request.Form["columns[" + request.Form["order[0][column]"] + "][name]"];
