@@ -1,7 +1,7 @@
 ﻿using System;
 using AybCommerce.Core.Interfaces.Services;
 using AybCommerce.Domain.Entities;
-using AybCommerce.Persistance.Data;
+using AybCommerce.Persistance.Data; 
 using System.Linq; 
  
 namespace AybCommerce.Core.Application.Services
