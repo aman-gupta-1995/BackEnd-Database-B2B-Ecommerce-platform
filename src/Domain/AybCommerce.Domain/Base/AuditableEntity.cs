@@ -8,7 +8,7 @@ namespace AybCommerce.Domain.Base
     { 
         public virtual DateTime Created { get; set; }
 
-        public virtual DateTime Updated { get; set; }
+        public virtual DateTime Updated { get; set; } 
 
         #region Foreign Key(s)
 
