@@ -5,7 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel> 
   </PropertyGroup>  
 
-  <ItemGroup>
+  <ItemGroup> 
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
