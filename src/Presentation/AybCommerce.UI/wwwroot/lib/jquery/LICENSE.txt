@@ -7,7 +7,7 @@ available at https://github.com/jquery/jquery
 The following license applies to all parts of this software except as
 documented below:
 
-====
+==== 
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

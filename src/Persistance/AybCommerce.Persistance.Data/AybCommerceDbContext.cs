@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace AybCommerce.Persistance.Data
+namespace AybCommerce.Persistance.Data 
 {
     public class AybCommerceDbContext : IdentityDbContext<User>
     {
