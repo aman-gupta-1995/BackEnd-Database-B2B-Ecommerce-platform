@@ -29,7 +29,7 @@ namespace AybCommerce.Core.Application.Services
                 currentAddress.AddressLine1 = address.AddressLine1;
                 currentAddress.AddressLine2 = address.AddressLine2;
                 currentAddress.ZipCode = address.ZipCode;
-                currentAddress.City = address.City;
+                currentAddress.City = address.City; 
                 currentAddress.State = address.State;
 
                 return _dbContext.SaveChanges() > 0;
