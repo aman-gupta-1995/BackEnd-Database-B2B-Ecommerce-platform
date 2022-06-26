@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 namespace AybCommerce.Common.Models
 {  
     public class DataTableFormRequest  
-    { 
+    {  
         public DataTableFormRequest(HttpRequest request) 
         {
             Start = Convert.ToInt32(request.Form["start"]);
