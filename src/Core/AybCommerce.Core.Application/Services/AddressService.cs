@@ -4,7 +4,7 @@ using AybCommerce.Domain.Entities;
 using AybCommerce.Persistance.Data; 
 using System.Linq; 
   
-namespace AybCommerce.Core.Application.Services 
+namespace AybCommerce.Core.Application.Services  
 {
     public class AddressService : IAddressService
     {
