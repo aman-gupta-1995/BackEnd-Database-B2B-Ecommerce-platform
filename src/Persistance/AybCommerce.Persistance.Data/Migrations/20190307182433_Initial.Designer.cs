@@ -11,7 +11,7 @@ namespace AybCommerce.Persistance.Data.Migrations
 {
     [DbContext(typeof(AybCommerceDbContext))]
     [Migration("20190307182433_Initial")]
-    partial class Initial
+    partial class Initial 
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

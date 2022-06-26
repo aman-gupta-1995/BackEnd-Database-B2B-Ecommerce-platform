@@ -10,7 +10,7 @@ namespace AybCommerce.Persistance.Data.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
-                columns: table => new
+                columns: table => new 
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),

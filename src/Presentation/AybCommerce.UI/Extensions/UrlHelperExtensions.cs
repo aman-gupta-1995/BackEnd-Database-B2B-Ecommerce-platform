@@ -12,7 +12,7 @@ namespace AybCommerce.UI.Extensions
         //        controller: "Account",
         //        values: new { userId, code },
         //        protocol: scheme);
-        //}
+        //} 
 
         public static string ResetPasswordCallbackLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
         {

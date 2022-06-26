@@ -8,4 +8,5 @@ namespace AybCommerce.UI.ViewModels.Account
         [EmailAddress]
         public string Email { get; set; }
     }
-}
+} 
+ 
