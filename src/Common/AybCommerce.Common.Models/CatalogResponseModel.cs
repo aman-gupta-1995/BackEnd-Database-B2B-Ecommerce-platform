@@ -12,3 +12,4 @@ namespace AybCommerce.Common.Models
         public int? CategoryFilterApplied { get; set; }
     }
 }
+ 
