@@ -26,7 +26,7 @@ namespace AybCommerce.Core.Application.Services
 
             if (currentAddress != null)
             {
-                currentAddress.AddressLine1 = address.AddressLine1;
+                currentAddress.AddressLine1 = address.AddressLine1; 
                 currentAddress.AddressLine2 = address.AddressLine2;
                 currentAddress.ZipCode = address.ZipCode;
                 currentAddress.City = address.City; 
