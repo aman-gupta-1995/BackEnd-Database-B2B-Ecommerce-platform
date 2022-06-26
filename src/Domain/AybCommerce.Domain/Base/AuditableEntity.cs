@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AybCommerce.Domain.Base 
+namespace AybCommerce.Domain.Base  
 {    
     public abstract class AuditableEntity : BaseEntity    
     { 
