@@ -5,7 +5,7 @@ namespace AybCommerce.Common.Models
 { 
     public class DataTableFormRequest 
     {
-        public DataTableFormRequest(HttpRequest request)
+        public DataTableFormRequest(HttpRequest request) 
         {
             Start = Convert.ToInt32(request.Form["start"]);
 
