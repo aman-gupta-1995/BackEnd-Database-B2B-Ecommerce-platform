@@ -1,4 +1,4 @@
-﻿using AybCommerce.Domain.Entities;
+ ﻿using AybCommerce.Domain.Entities;
 
 namespace AybCommerce.Core.Interfaces.Services
 {
