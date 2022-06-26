@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AybCommerce.Domain.Base 
-{   
+{    
     public abstract class AuditableEntity : BaseEntity 
     { 
         public virtual DateTime Created { get; set; }
