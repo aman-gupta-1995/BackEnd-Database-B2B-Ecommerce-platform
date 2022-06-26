@@ -29,7 +29,7 @@ namespace AybCommerce.Common.Models
         public string SortColumnName { get; set; }
 
         public string SortDirection { get; set; }
-
+ 
         public string Draw { get; set; }
     }
 }
