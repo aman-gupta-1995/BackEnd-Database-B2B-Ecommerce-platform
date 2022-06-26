@@ -5,7 +5,7 @@ namespace AybCommerce.Common.Models
 { 
     public class CatalogResponseModel
     {    
-        public List<Product> Products { get; set; }   
+        public List<Product> Products { get; set; }    
  
         public PaginationInfoViewModel PaginationInfo { get; set; }
 
