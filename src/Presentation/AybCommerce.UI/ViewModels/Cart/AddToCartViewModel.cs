@@ -4,7 +4,7 @@ using AybCommerce.UI.ViewModels.Util;
 
 namespace AybCommerce.UI.ViewModels.Cart
 {
-    public class AddToCartViewModel
+    public class AddToCartViewModel 
     {
         public string ErpCode { get; set; }
         public int Quantity { get; set; }

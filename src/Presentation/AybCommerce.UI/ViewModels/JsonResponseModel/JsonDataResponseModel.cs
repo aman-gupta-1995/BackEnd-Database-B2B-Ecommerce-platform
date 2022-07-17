@@ -12,7 +12,7 @@ namespace AybCommerce.UI.ViewModels.JsonResponseModel
         {
             Success = success;
             Message = message;
-        }
+        } 
 
         public JsonDataResponseModel(bool success, string message, T data)
         {

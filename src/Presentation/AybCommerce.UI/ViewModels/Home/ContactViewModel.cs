@@ -8,7 +8,7 @@ namespace AybCommerce.UI.ViewModels.Home
         [StringLength(50)]
         public string FullName { get; set; }
 
-        [Required]
+        [Required] 
         [StringLength(200)]
         public string Subject { get; set; }
 
