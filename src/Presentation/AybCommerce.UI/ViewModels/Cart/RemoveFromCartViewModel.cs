@@ -7,7 +7,7 @@ namespace AybCommerce.UI.ViewModels.Cart
     {
         public string ProductCode { get; set; }
     }
-
+ 
     public class RemoveFromCartViewBuilder : GenericViewModelBuilder<CartItem>
     {
         RemoveFromCartViewModel _model;

@@ -8,7 +8,7 @@ namespace AybCommerce.UI.ViewModels.JsonResponseModel
         public JsonResponseModel(bool success, string message)
         {
             Success = success;
-            Message = message;
+            Message = message; 
         }
 
         public JsonResponseModel(bool success, string message, Dictionary<string, object> externalData) : this(success, message)
