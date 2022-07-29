@@ -1,7 +1,7 @@
 # AybCommerce B2B
 
 AybCommerce is a simple, open source B2B E-Commerce solution.
-
+ 
 ### Prerequisites
 
 You just need to install the [.net core 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2 ".net core 2.2")
