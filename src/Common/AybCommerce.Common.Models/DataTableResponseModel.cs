@@ -8,7 +8,7 @@ namespace AybCommerce.Common.Models
         {      
             Data = data;
             Draw = draw ?? throw new ArgumentNullException(nameof(draw));
-            RecordsTotal = recordsTotal;
+            RecordsTotal = recordsTotal; 
             RecordsFiltered = recordsFiltered;
         }
 
