@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Generic; 
 using AybCommerce.Domain.Entities;
  
 namespace AybCommerce.Common.Models   
