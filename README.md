@@ -15,7 +15,7 @@ You just need to install the [.net core 2.2](https://dotnet.microsoft.com/downlo
 
 ###### Credentials
 	admin username: admin@admin.com  password: 123123
-	customer username: ayb@ars.com  password: 123123
+	customer username: ayb@ars.com  password: 123123 
 
 ###### Datastore
 
