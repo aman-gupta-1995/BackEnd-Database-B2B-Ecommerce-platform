@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AybCommerce.Domain.Entities;
  
-namespace AybCommerce.Common.Models  
+namespace AybCommerce.Common.Models   
 {  
     public class CatalogResponseModel  
     {         
