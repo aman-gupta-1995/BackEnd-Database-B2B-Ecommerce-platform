@@ -3,7 +3,7 @@
 namespace Service.Tests
 {    
     public class UserControllerTest       
-    {        
+    {         
         readonly AddressServiceFake _addressServiceFake;             
         readonly UserServiceFake _userServiceFake;        
  
