@@ -6,7 +6,7 @@ namespace Service.Tests
     {     
         readonly AddressServiceFake _addressServiceFake;       
         readonly UserServiceFake _userServiceFake;        
-
+ 
         UserController _controller;
 
         public UserControllerTest()
