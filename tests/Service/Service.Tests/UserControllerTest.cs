@@ -1,6 +1,6 @@
 ﻿using AybCommerce.UI.Controllers;
 
-namespace Service.Tests
+namespace Service.Tests 
 {    
     public class UserControllerTest        
     {           
