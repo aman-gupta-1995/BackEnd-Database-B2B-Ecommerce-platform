@@ -1,7 +1,7 @@
 ﻿using AybCommerce.UI.Controllers;
 
 namespace Service.Tests
-{
+{ 
     public class UserControllerTest    
     {      
         readonly AddressServiceFake _addressServiceFake;        
